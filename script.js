@@ -2,13 +2,13 @@ let display = document.querySelector('#display');
 let numbers = document.querySelectorAll('.numbers');
 let operators = document.querySelectorAll('#operators button');
 let equals = document.querySelector('#equals');
+let consecutiveOperations = 0;
 let operatorPushed = false;
 let operationsPerformed = 0;
 let firstNumber = 0;
 let secondNumber = 0;
 let operation = '';
 
-// Display every clicked number and clear any displayed operations
 numbers.forEach(number => {
     number.addEventListener('click', e => {
         if (operatorPushed === true) {
@@ -16,24 +16,29 @@ numbers.forEach(number => {
             operatorPushed = false;
         }        
         display.innerText += number.innerText;
+        consecutiveOperations = 0;
     });
 });
 
 operators.forEach(operator => {
     operator.addEventListener('click', e => {
         if (e.target.id === 'add' || e.target.id === 'subtract' || e.target.id === 'multiply' || e.target.id === 'divide') {
-            if (operationsPerformed === 0) {
-                firstNumber = +display.innerText;
-                display.innerText = e.target.innerText;
-                operation = e.target.id;
+            operation = e.target.id;
+            if (consecutiveOperations < 1) {
+                if (operationsPerformed === 0) {
+                    firstNumber = +display.innerText;
+                    display.innerText = e.target.innerText;
+                } else {
+                    secondNumber = +display.innerText;
+                    display.innerText = operate(firstNumber, secondNumber);
+                    firstNumber = +display.innerText;
+                }
+                consecutiveOperations++;
+                operatorPushed = true;
+                operationsPerformed++;
             } else {
-                secondNumber = +display.innerText;
-                display.innerText = operate(firstNumber, secondNumber);
-                firstNumber = +display.innerText;
-                operation = e.target.id;
+                display.innerText = e.target.innerText;
             }
-            operatorPushed = true;
-            operationsPerformed++;
         } else if (e.target.id === 'equals' && operationsPerformed > 0) {
             secondNumber = +display.innerText;
             display.innerText = operate(firstNumber, secondNumber);
