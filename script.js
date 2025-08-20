@@ -39,7 +39,7 @@ operators.forEach(operator => {
             } else {
                 display.innerText = e.target.innerText;
             }
-        } else if (e.target.id === 'equals' && operationsPerformed > 0) {
+        } else if (e.target.id === '=' && operationsPerformed > 0) {
             secondNumber = +display.innerText;
             display.innerText = operate(firstNumber, secondNumber);
             firstNumber = +display.innerText;
@@ -76,7 +76,7 @@ document.addEventListener('keypress', e => {
         } else {
             display.innerText = e.key;
         }
-    } else if (e.key === '=' && operationsPerformed > 0) {
+    } else if (e.key === 'Enter' && operationsPerformed > 0) {
         secondNumber = +display.innerText;
         display.innerText = operate(firstNumber, secondNumber);
         firstNumber = +display.innerText;
