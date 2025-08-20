@@ -58,7 +58,8 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
+    let answer = a / b;
+    return Math.round(answer * 1000) / 1000;
 }
 
 function operate(a, b) {
