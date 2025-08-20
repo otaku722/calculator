@@ -50,6 +50,40 @@ operators.forEach(operator => {
     });
 });
 
+document.addEventListener('keypress', e => {
+    if (operatorPushed === true) {
+        display.innerText = '';
+        operatorPushed = false;
+    }       
+
+    if (!isNaN(e.key)) {
+        display.innerText += e.key;
+        consecutiveOperations = 0;
+    } else if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
+        operation = e.key;
+        if (consecutiveOperations < 1) {
+            if (operationsPerformed === 0) {
+                firstNumber = +display.innerText;
+                display.innerText = e.key;
+            } else {
+                secondNumber = +display.innerText;
+                display.innerText = operate(firstNumber, secondNumber);
+                firstNumber = +display.innerText;
+            }
+            consecutiveOperations++;
+            operatorPushed = true;
+            operationsPerformed++;
+        } else {
+            display.innerText = e.key;
+        }
+    } else if (e.key === '=' && operationsPerformed > 0) {
+        secondNumber = +display.innerText;
+        display.innerText = operate(firstNumber, secondNumber);
+        firstNumber = +display.innerText;
+        operationsPerformed = 0;
+    }
+});
+
 function add(a, b) {
     return a + b;
 }
@@ -74,12 +108,16 @@ function divide(a, b) {
 function operate(a, b) {
     switch (operation) {
         case 'add':
+        case '+':
             return add(a, b);
         case 'subtract':
+        case '-':
             return subtract(a, b);
         case 'multiply':
+        case '*':
             return multiply(a, b);
         case 'divide':
+        case '/':
             return divide(a, b);          
     }
 }
