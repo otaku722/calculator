@@ -58,6 +58,10 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+    if (b === 0) {
+        alert("Nice try, but math says no.");
+        clearAll();
+    }
     let answer = a / b;
     return Math.round(answer * 1000) / 1000;
 }
