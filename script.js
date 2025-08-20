@@ -3,8 +3,8 @@ let numbers = document.querySelectorAll('.numbers');
 let operators = document.querySelectorAll('#operators button');
 let equals = document.querySelector('#equals');
 let operatorPushed = false;
-let firstNumber = 0;
-let secondNumber = 0;
+let firstNumber;
+let secondNumber;
 let operation = '';
 
 numbers.forEach(number => {
@@ -32,29 +32,39 @@ operators.forEach(operator => {
         if (e.target.id === 'clear') {
             location.reload();
         }
+        if (e.target.id === 'equals') {
+            secondNumber = +display.innerText;
+            firstNumber = operate(firstNumber, secondNumber);
+            display.innerText = firstNumber;
+        }
     });
 });
 
-equals.addEventListener('click', e => {
-
-});
-
-function add(number) {
-    
+function add(a, b) {
+    return a + b;
 }
 
-function subtract() {
-
+function subtract(a, b) {
+    return a - b;
 }
 
-function multiply() {
-
+function multiply(a, b) {
+    return a * b;
 }
 
-function divide() {
-
+function divide(a, b) {
+    return a / b;
 }
 
-function operate() {
-
+function operate(a, b) {
+    switch (operation) {
+        case 'add':
+            return add(a, b);
+        case 'subtract':
+            return subtract(a, b);
+        case 'multiply':
+            return multiply(a, b);
+        case 'divide':
+            return divide(a, b);          
+    }
 }
