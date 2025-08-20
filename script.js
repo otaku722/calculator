@@ -40,7 +40,7 @@ operators.forEach(operator => {
             firstNumber = +display.innerText;
             operationsPerformed = 0;
         } else if (e.target.id === 'clear') {
-            location.reload();
+            clearAll();
         }
     });
 });
@@ -73,4 +73,13 @@ function operate(a, b) {
         case 'divide':
             return divide(a, b);          
     }
+}
+
+function clearAll() {
+    operatorPushed = false;
+    operationsPerformed = 0;
+    firstNumber = 0;
+    secondNumber = 0;
+    operation = '';
+    display.innerText = '';
 }
